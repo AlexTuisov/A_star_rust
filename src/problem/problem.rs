@@ -13,4 +13,6 @@ pub trait Problem {
 
     // 4. Goal detection - given a state, return a binary indicating whether it is a goal state or not
     fn is_goal_state(&self, state: &State) -> bool;
+
+    fn heuristic(&self, state: &State) -> f64;
 }

@@ -41,4 +41,8 @@ impl Problem for SimpleProblem {
             false
         }
     }
+
+    fn heuristic(&self, state: &State) -> f64 {
+        0.0
+    }
 }

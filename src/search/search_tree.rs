@@ -85,6 +85,26 @@ impl Tree {
         successors
     }
 
+    pub fn print_tree(&self, node_index: usize, indent: usize) {
+        if let Some(node) = self.get_node(node_index) {
+            // Print the current node details with indentation to show hierarchy
+            println!(
+                "{:indent$}Node Index: {}, Cost: {}, Action: {:?}, State: {:?}",
+                "",
+                node_index,
+                node.cost,
+                node.action.as_ref().map(|a| &a.name),
+                node.state,
+                indent = indent
+            );
+
+            // Recursively print all children of the current node
+            for &child_index in &node.children {
+                self.print_tree(child_index, indent + 4); // Increase indent for child nodes
+            }
+        }
+    }
+
 }
 
 
@@ -172,5 +192,6 @@ mod tests {
         assert_eq!(tree.get_node(successors[0]).unwrap().state.get_field("health"), Some(&Value::Int(51)));
         assert_eq!(tree.get_node(successors[1]).unwrap().state.get_field("health"), Some(&Value::Int(52)));
         assert_eq!(tree.get_node(successors[2]).unwrap().state.get_field("health"), Some(&Value::Int(53)));
+        tree.print_tree(0, 2);
     }
 }

@@ -38,6 +38,23 @@ impl Node {
             cost: new_cost,
         }
     }
+
+
+    // Trace the sequence of actions from the initial node to this node
+    pub fn trace_actions(&self) -> Vec<Action> {
+        let mut actions = Vec::new();
+        let mut current_node = Some(Rc::new(self.clone()));  // Start with the current node
+
+        while let Some(node) = current_node {
+            if let Some(action) = &node.action {
+                actions.push(action.clone());  // Add the action to the sequence
+            }
+            current_node = node.parent.clone();  // Move to the parent node
+        }
+
+        actions.reverse();  // Reverse to get actions in the correct order from root to current node
+        actions
+    }
 }
 
 
@@ -45,7 +62,7 @@ impl Node {
 #[cfg(test)]
 mod tests {
     use crate::Value;
-use super::*;
+    use super::*;
 
     #[test]
     fn test_create_empty_node() {
@@ -84,6 +101,39 @@ use super::*;
         // Verify the state was modified correctly
         assert_eq!(child_node.state.get_field("health"), Some(&Value::Int(110)));
         assert_eq!(child_node.cost, 10);
+    }
+
+
+    #[test]
+    fn test_trace_actions() {
+        let mut root_state = State::new();
+        root_state.insert_field("health".to_string(), Value::Int(100));
+        let root_node = Node::new_empty(root_state.clone());
+
+        let action1 = Action::new("increase_health".to_string(), 10);
+        let node1 = Node::from_parent_and_action(Rc::new(root_node), action1.clone(), |state, action| {
+            let mut new_state = state.clone();
+            if let Some(Value::Int(health)) = new_state.get_field("health") {
+                new_state.insert_field("health".to_string(), Value::Int(health + action.cost));
+            }
+            new_state
+        });
+
+        let action2 = Action::new("increase_health".to_string(), 5);
+        let node2 = Node::from_parent_and_action(Rc::new(node1.clone()), action2.clone(), |state, action| {
+            let mut new_state = state.clone();
+            if let Some(Value::Int(health)) = new_state.get_field("health") {
+                new_state.insert_field("health".to_string(), Value::Int(health + action.cost));
+            }
+            new_state
+        });
+
+        let actions = node2.trace_actions();
+
+        assert_eq!(actions.len(), 2);
+        assert_eq!(actions[0], action1);
+        assert_eq!(actions[1], action2);
+        println!("{:?}", actions);
     }
 }
 

@@ -17,7 +17,7 @@ impl Problem for SimpleProblem {
         for amount in 1..=10 {
             let mut params = HashMap::new();
             params.insert("amount".to_string(), Value::Int(amount));
-            actions.push(Action::new("increase_health".to_string(), amount, params));
+            actions.push(Action::new("increase_health".to_string(), 1, params));
         }
         actions
     }
@@ -36,13 +36,18 @@ impl Problem for SimpleProblem {
     fn is_goal_state(&self, state: &State) -> bool {
         // Example goal check: health reaching 200
         if let Some(Value::Int(health)) = state.get_field("health") {
-            *health >= 200
+            *health >= 100000
         } else {
             false
         }
     }
 
     fn heuristic(&self, state: &State) -> f64 {
-        0.0
+        if let Some(Value::Int(health)) = state.get_field("health") {
+            (100000.0 - *health as f64) / 5.0
+        } else {
+            0.0
+        }
     }
+
 }

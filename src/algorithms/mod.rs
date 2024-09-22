@@ -1,2 +1,2 @@
-mod priority_queue;
-mod bfs;
+pub(crate) mod priority_queue;
+pub(crate) mod bfs;

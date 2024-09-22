@@ -1,9 +1,10 @@
 use crate::search::{node::Node, state::State, action::Action, value::Value};
-pub struct Tree {
+use crate::algorithms::priority_queue::PriorityQueue;
+pub struct SearchTree {
     pub nodes: Vec<Node>,    // A vector to store all nodes
 }
 
-impl Tree {
+impl SearchTree {
     // Create a new empty tree with an initial node
     pub fn new(initial_state: State) -> Self {
         let root = Node {
@@ -14,7 +15,7 @@ impl Tree {
             cost: 0,
         };
 
-        Tree {
+        SearchTree {
             nodes: vec![root], // Add the root node to the nodes vector
         }
     }
@@ -104,7 +105,6 @@ impl Tree {
             }
         }
     }
-
 }
 
 
@@ -126,7 +126,7 @@ mod tests {
     #[test]
     fn test_trace_actions() {
         let initial_state = State::new();
-        let mut tree = Tree::new(initial_state);
+        let mut tree = SearchTree::new(initial_state);
 
         // Define apply_action logic
         let apply_action = |state: &State, action: &Action| {
@@ -158,7 +158,7 @@ mod tests {
     fn test_expand_node() {
         let mut initial_state = State::new();
         initial_state.insert_field("health".to_string(), Value::Int(50));
-        let mut tree = Tree::new(initial_state);
+        let mut tree = SearchTree::new(initial_state);
 
         // Define get_possible_actions logic
         let get_possible_actions = |state: &State| {

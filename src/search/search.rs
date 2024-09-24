@@ -20,7 +20,7 @@ where
     Q: PriorityQueue,
     I: Fn(&State) -> f64,
 {
-    queue.insert(0, 0, 0.0 );
+    queue.insert(0, 0, f64::MAX);
     let mut closed_list = HashSet::new();
     let mut node_count = 0;
     let mut unique_node_count = 0;

@@ -1,0 +1,17 @@
+{
+  "bounds": [5, 5],
+  "entities": {
+    "taxi": [0, 0],
+    "passengers": {
+      "passenger1": [1, 1],
+      "goal1": [4, 4],
+      "passenger2": [2, 2],
+      "goal2": [3, 3]
+    },
+    "impassable_tiles": [
+      [3, 0],
+      [1, 2],
+      [3, 4]
+    ]
+  }
+}

@@ -151,7 +151,6 @@ impl Problem for TaxiProblem {
         for (goal_key, goal_pos) in self.goals.iter() {
             let passenger_key = format!("in_taxi_{}", goal_key.replace("goal", "passenger"));
             if goal_pos == taxi_pos && positions.contains_key(&passenger_key) {
-                println!("Disembarking {}", passenger_key);
                 actions.push(Action::new(
                     format!("disembark_{}", goal_key),
                     1,

@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
-use crate::search::{state::State, action::Action};
+use crate::search::{state::{State, Value}, action::Action};
 
 
 #[derive(Debug, Clone, PartialEq)]

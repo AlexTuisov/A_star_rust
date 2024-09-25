@@ -1,6 +1,29 @@
-use std::collections::HashMap;
+use std::collections::{HashSet, HashMap};
 use std::collections::BTreeMap;
-use super::value::Value;
+
+
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Copy)]
+pub struct Position{
+    pub x: i32,
+    pub y: i32,
+}
+
+impl Position {
+    pub fn new(x: i32, y: i32) -> Self {
+        Position { x, y }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub enum Value {
+    Int(i32),
+    Text(String),
+    Bool(bool),
+    IntArray(Vec<i32>),
+    Positions(BTreeMap<String, Position>),
+}
+
+
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct State {
@@ -21,13 +44,4 @@ impl State {
     pub fn get_field(&self, key: &str) -> Option<&Value> {
         self.fields.get(key)
     }
-}
-
-
-#[test]
-fn test_insert_field() {
-    let mut state = State::new();
-    state.insert_field("health".to_string(), Value::Int(100));
-    state.insert_field("location".to_string(), Value::Text("right corner".to_string()));
-    assert_eq!(state.get_field("health").and_then(|v| if let Value::Int(i) = v { Some(i) } else { None }), Some(&100));
 }

@@ -1,4 +1,4 @@
-use crate::search::{node::Node, state::State, action::Action, value::Value};
+use crate::search::{node::Node, state::State, action::Action, state::Value};
 use crate::algorithms::priority_queue::PriorityQueue;
 pub struct SearchTree {
     pub nodes: Vec<Node>,    // A vector to store all nodes

@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 use std::collections::HashMap;
-use crate::search::{node::Node, state::State, action::Action, value::Value, value::Position};
+use crate::search::{node::Node, state::State, action::Action, state::Value, state::Position};
 use crate::problem::problem::Problem;
 use std::rc::Rc;
 use std::collections::HashSet;

@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use crate::search::{node::Node, state::State, action::Action, value::Value};
+use crate::search::{node::Node, state::State, action::Action, state::Value};
 use crate::problem::problem::Problem;
 use std::rc::Rc;
 

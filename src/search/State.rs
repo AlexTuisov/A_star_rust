@@ -21,6 +21,9 @@ pub enum Value {
     Bool(bool),
     IntArray(Vec<i32>),
     Positions(BTreeMap<String, Position>),
+    MapToVecString(BTreeMap<String, Vec<String>>),
+    MapToString(BTreeMap<String, String>),
+    MapToInt(BTreeMap<String, i32>),
 }
 
 

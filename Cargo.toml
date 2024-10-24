@@ -9,7 +9,7 @@ path = "src/main.rs"
 
 [[bin]]
 name = "input_generator"
-path = "src/problem/taxi_problem/random_input_generator.rs"
+path = "src/problems/taxi_problem/random_input_generator.rs"
 
 [dependencies]
 serde_json = "1.0.128"
